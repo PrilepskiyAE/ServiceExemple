@@ -6,7 +6,7 @@ import android.os.IBinder
 import android.widget.Toast
 
 class MyService : Service() {
-
+var b:Boolean=true
 
     override fun onBind(intent: Intent): IBinder {
         throw UnsupportedOperationException("Not yet implemented")
@@ -14,8 +14,10 @@ class MyService : Service() {
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         onTaskRemoved(intent)
-        var test=1
+        var test=0
+        while (b && test!=10){
         Toast.makeText( applicationContext, "This is a Service running in Background${test++}", Toast.LENGTH_SHORT).show()
+        }
         return START_STICKY
     }
 
@@ -29,6 +31,7 @@ class MyService : Service() {
     override fun stopService(name: Intent?): Boolean {
         Toast.makeText( applicationContext, "Stop service", Toast.LENGTH_SHORT).show()
         //Intent(applicationContext, MyService::class.java)
+        b=false
         return super.stopService(name)
     }
 
